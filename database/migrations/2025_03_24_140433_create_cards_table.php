@@ -20,9 +20,9 @@ return new class extends Migration
             $table->text('description'); 
             $table->foreignId('category_id')->constrained('categories');
             $table->foreignId('card_size_id')->constrained('card_sizes');
-            $table->boolean('deleted')->default(false);
             // todo owner
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
