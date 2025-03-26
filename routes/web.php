@@ -10,3 +10,5 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/cards', [App\Http\Controllers\CardController::class, 'index'])->name('cards_list');
