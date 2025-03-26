@@ -5,14 +5,18 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Card;
+use App\Models\Category;
 
 class CardSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
-    public function run(): void
+    public function run()
     {
-        Card::factory()->count(50)->create();
+        Card::factory()->count(50)->create()->each(function ($card) {
+            $categories = Category::inRandomOrder()->take(rand(1, 3))->pluck('id');
+            $card->categories()->attach($categories);
+        });
     }
 }

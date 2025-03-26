@@ -26,7 +26,7 @@ class CardFactory extends Factory
             'music' => fake()->url(),
             'video' => fake()->url(),
             'description' => fake()->text(),
-            'category_id' => Category::factory(),
+            // 'card_category_id' => Category::inRandomOrder()->first()->id,
             'card_size_id' => CardSize::inRandomOrder()->first()->id,
         ];
     }
