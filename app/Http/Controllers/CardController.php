@@ -15,7 +15,7 @@ class CardController extends Controller
      */
     public function index()
     {
-        return view('cards.index', ['cards' => Card::all()]);
+        // return view('cards.index', ['cards' => Card::all()]);
     }
 
     /**
@@ -24,7 +24,7 @@ class CardController extends Controller
     public function create()
     {
         Log::info('User :' . Auth::id() . ' wants to create a card');
-        return view('cards.create');
+        // return view('cards.create');
     }
 
     /**
