@@ -25,7 +25,7 @@ class CardFactory extends Factory
             'video' => fake()->url(),
             'description' => fake()->text(),
             'category_id' => Category::factory(),
-            'card_size_id' => CardSize::factory(),
+            'card_size_id' => CardSize::inRandomOrder()->first()->id,
         ];
     }
 }
