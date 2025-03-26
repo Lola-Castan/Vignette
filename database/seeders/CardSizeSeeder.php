@@ -20,12 +20,7 @@ class CardSizeSeeder extends Seeder
         ];
 
         foreach ($sizes as $size) {
-            $newCardSize = CardSize::create([
-            'name' => $size['name']
-            ]);
-            $newCardSize->width = $size['width'];
-            $newCardSize->height = $size['height'];
-            $newCardSize->save();
+            CardSize::create($size);
         }
     }
 }
