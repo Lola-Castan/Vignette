@@ -11,5 +11,9 @@ class Card extends Model
     /** @use HasFactory<\Database\Factories\CardFactory> */
     use HasFactory;
     use SoftDeletes;
-    
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
 }

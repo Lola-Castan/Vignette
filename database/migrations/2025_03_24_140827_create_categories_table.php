@@ -17,6 +17,13 @@ return new class extends Migration
             $table->boolean('enabled')->default(true);
             $table->timestamps();
         });
+
+        Schema::create('card_category', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(\App\Models\Card::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\Category::class)->constrained()->cascadeOnDelete();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -25,5 +32,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('categories');
+        Schema::dropIfExists('card_category');
     }
 };
