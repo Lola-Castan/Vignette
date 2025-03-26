@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('card_sizes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('width');
-            $table->string('height');
+            // todo question Erwann : pourquoi name n'a pas besoin de default value ?
+            $table->integer('width')->default(1);
+            $table->integer('height')->default(1);
             $table->timestamps();
         });
     }
