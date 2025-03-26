@@ -13,7 +13,9 @@ class CardController extends Controller
      */
     public function index()
     {
-        //
+        return view('cards_list', [
+            'cards' => Card::all(),
+        ]);
     }
 
     /**
