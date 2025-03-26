@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Card;
 use App\Http\Requests\StoreCardRequest;
 use App\Http\Requests\UpdateCardRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class CardController extends Controller
 {
@@ -13,9 +15,7 @@ class CardController extends Controller
      */
     public function index()
     {
-        return view('cards_list', [
-            'cards' => Card::all(),
-        ]);
+        return view('cards.index', ['cards' => Card::all()]);
     }
 
     /**
@@ -23,7 +23,8 @@ class CardController extends Controller
      */
     public function create()
     {
-        //
+        Log::info('User :' . Auth::id() . ' wants to create a card');
+        return view('cards.create');
     }
 
     /**
@@ -31,7 +32,8 @@ class CardController extends Controller
      */
     public function store(StoreCardRequest $request)
     {
-        //
+        // Création d'une carte en récupérant les données validées et en ajoutant l'id de l'utilisateur connecté au tableau envoyé
+        Card::create($request->validated() + ['user_id' => Auth::id()]);
     }
 
     /**

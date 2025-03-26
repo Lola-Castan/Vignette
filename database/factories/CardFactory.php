@@ -21,7 +21,7 @@ class CardFactory extends Factory
     {
         return [
             'user_id' => User::inRandomOrder()->first()->id,
-            'title' => fake()->title(),
+            'title' => fake()->sentence(),
             'image' => fake()->imageUrl(),
             'music' => fake()->url(),
             'video' => fake()->url(),
