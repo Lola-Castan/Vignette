@@ -64,7 +64,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         do {
-            $magicNumber = random_int(1, 10000);
+            $magicNumber = random_int(1, 100);
         } while (User::where('magic_number', $magicNumber)->exists());
         return User::create([
             'name' => $data['name'],
