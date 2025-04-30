@@ -16,4 +16,9 @@ class Card extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+    
+    public function cardSize()
+    {
+        return $this->belongsTo(CardSize::class);
+    }
 }

@@ -14,7 +14,7 @@ class CardSeeder extends Seeder
      */
     public function run()
     {
-        Card::factory()->count(50)->create()->each(function ($card) {
+        Card::factory()->count(15)->create()->each(function ($card) {
             $categories = Category::inRandomOrder()->take(rand(1, 3))->pluck('id');
             $card->categories()->attach($categories);
         });

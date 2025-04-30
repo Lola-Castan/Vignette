@@ -6,3 +6,38 @@
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+.page-container {
+    padding: 0 50px;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card {
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end !important;
+    &__categories {
+        z-index: 1000;
+    }
+}
+
+.small-card {
+    width: 250px;
+    height: 250px;
+}
+
+.medium-card {
+    width: 500px;
+    height: 250px;
+}
+
+.large-card {
+    width: 500px;
+    height: 500px;
+}

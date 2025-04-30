@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Card;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // Fetch the list of cards with their associated cardSizes
+        $cards = Card::with('cardSize')->get();
+        
+        // Pass cards to the view
+        return view('home', compact('cards'));
     }
 }

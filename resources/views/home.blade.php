@@ -1,23 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+<div class="page-container">
+    <h2 class="">Pinterest du pauvre</h2>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
+    @if(count($cards) > 0)
+    <div class="card-container">
+        @foreach($cards as $card)
+        <div class="">
+            <x-card :card="$card"/>
         </div>
+        @endforeach
     </div>
+    <x-card-modal modalId="cardModal" :card="$card"/>
+    @else
+    <div class="alert alert-info">
+        Aucune carte n'est disponible pour le moment.
+    </div>
+    @endif
 </div>
 @endsection

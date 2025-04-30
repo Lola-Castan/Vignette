@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->string('title');
-            $table->string('image');
-            $table->string('music');
-            $table->string('video');
+            $table->string('image')->nullable();
+            $table->string('music')->nullable();
+            $table->string('video')->nullable();
             $table->text('description');
             $table->foreignId('card_size_id')->constrained('card_sizes');
             // todo owner
