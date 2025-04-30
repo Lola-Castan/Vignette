@@ -22,7 +22,7 @@
     @if(count($cards) > 0)
     <div class="card-container">
         @foreach($cards as $card)
-        <div class="card-clickable" data-bs-toggle="modal" data-bs-target="#cardModal-{{ $card->id }}">
+        <div class="card-clickable" data-modal-id="cardModal-{{ $card->id }}">
             <x-card :card="$card"/>
         </div>
         @endforeach
@@ -37,29 +37,3 @@
     @endif
 </div>
 @endsection
-
-<style>
-    .category-filter {
-        margin-bottom: 20px;
-    }
-    .category-nav {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-    .category-item {
-        padding: 8px 16px;
-        background-color: #f0f0f0;
-        border-radius: 20px;
-        text-decoration: none;
-        color: #333;
-        transition: all 0.3s ease;
-    }
-    .category-item:hover {
-        background-color: #e0e0e0;
-    }
-    .category-item.active {
-        background-color: #007bff;
-        color: white;
-    }
-</style>

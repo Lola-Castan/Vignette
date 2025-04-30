@@ -7,7 +7,7 @@ $cardSizeName = $card->cardSize->name . "-card";
 <div class="{{ $cardSizeName }} card">
     {{ $card->title }}
     @if($card->image)
-    <img src="{{ asset( $card->image) }}" class="" alt="{{ $card->name }}" style="height: 100%; width: 100%; object-fit: cover; position: absolute">
+    <img src="{{ asset( $card->image) }}" class="" id="{{ $card->id }}" alt="{{ $card->name }}" style="height: 100%; width: 100%; object-fit: cover; position: absolute">
     @elseif($card->video)
     <video controls style="height: 100%; width:100%; position: absolute" type="video/mp4; codecs=h264">
         <source src="{{ asset($card->video) }}"/>

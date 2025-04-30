@@ -5,7 +5,10 @@
  */
 
 import './bootstrap';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { createApp } from 'vue';
+import * as bootstrap from 'bootstrap';
+window.bootstrap = bootstrap;
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
@@ -37,3 +40,26 @@ app.component('example-component', ExampleComponent);
  */
 
 app.mount('#app');
+
+// Ajout d'un écouteur d'événements pour le clic sur les cartes pour éviter la surcharge du clic
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.card-clickable').forEach(function (card) {
+        card.addEventListener('click', function (e) {
+            const categoryLink = e.target.closest('.card__categories_category');
+            // Si le clic est détecté sur une bulle de catégorie
+            if (categoryLink) {
+                window.location.href = categoryLink.getAttribute('href');
+                return;
+            }
+            // Sinon, le clic est probablement sur la carte elle-même
+            const modalId = card.getAttribute('data-modal-id');
+            if (modalId) {
+                const modalElement = document.getElementById(modalId);
+                if (modalElement) {
+                    const modal = new bootstrap.Modal(modalElement);
+                    modal.show();
+                }
+            }
+        });
+    });
+});
