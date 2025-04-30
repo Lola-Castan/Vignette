@@ -17,7 +17,7 @@ $cardSizeName = $card->cardSize->name . "-card";
     @if($card->categories->count() > 0)
     <div class="card__categories">
         @foreach($card->categories as $category)
-        <a href="#" class="badge m-1 bg-secondary text-decoration-none card__categories_category">{{ $category->name }}</a>
+        <a href="{{ route('home', ['category' => $category->id]) }}" class="badge m-1 bg-secondary text-decoration-none card__categories_category">{{ $category->name }}</a>
         @endforeach
     </div>
     @endif
