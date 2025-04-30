@@ -9,27 +9,31 @@
             </div>
             <div class="modal-body text-center">
                 @if($card->image)
-                <img src="{{ asset('storage/' . $card->image) }}" class="img-fluid mb-3" alt="{{ $card->title ?? $card->name }}">
+                <img src="{{ asset($card->image) }}" class="img-fluid mb-3 card-modal-media-image" alt="{{ $card->title ?? $card->name }}">
                 @elseif($card->music)
                 <audio controls class="mb-3">
-                    <source src="{{ asset('storage/' . $card->music) }}">
+                    <source src="{{ asset($card->music) }}">
                     Votre navigateur ne supporte pas l'audio.
                 </audio>
                 @elseif($card->video)
-                <video controls preload="auto" class="img-fluid mb-3" style="max-width:100%">
-                    <source src="{{ asset('storage/' . $card->video) }}">
+                <video controls preload="auto" class="img-fluid mb-3 card-modal-media-video">
+                    <source src="{{ asset($card->video) }}">
                     Votre navigateur ne supporte pas la vidéo.
                 </video>
                 @endif
-                <p>{{ $card->description }}</p>
-                <p><strong>Magic number:</strong> {{ $card->user->magic_number ?? '' }}</p>
-                @if($card->categories->count() > 0)
-                <div>
-                    @foreach($card->categories as $category)
-                    <span class="badge bg-secondary">{{ $category->name }}</span>
-                    @endforeach
+                <div class="modal-body__right">
+                    <p>{{ $card->description }}</p>
+                    <div>
+                        <p><strong>Magic number:</strong> {{ $card->user->magic_number ?? '' }}</p>
+                        @if($card->categories->count() > 0)
+                        <div>
+                            @foreach($card->categories as $category)
+                            <span class="badge bg-secondary">{{ $category->name }}</span>
+                            @endforeach
+                        </div>
+                        @endif
+                    </div>
                 </div>
-                @endif
             </div>
         </div>
     </div>

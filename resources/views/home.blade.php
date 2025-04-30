@@ -22,14 +22,14 @@
     @if(count($cards) > 0)
     <div class="card-container">
         @foreach($cards as $card)
-        <div class="">
+        <div class="card-clickable" data-bs-toggle="modal" data-bs-target="#cardModal-{{ $card->id }}">
             <x-card :card="$card"/>
         </div>
         @endforeach
     </div>
-    @if(isset($cards[0]))
-        <x-card-modal modalId="cardModal" :card="$cards[0]"/>
-    @endif
+    @foreach($cards as $card)
+        <x-card-modal modalId="cardModal-{{ $card->id }}" :card="$card"/>
+    @endforeach
     @else
     <div class="alert alert-info">
         Aucune carte n'est disponible pour cette catégorie.
