@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Card;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -22,12 +23,20 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Fetch the list of cards with their associated cardSizes
-        $cards = Card::with('cardSize')->get();
+        $categories = Category::all();
+        $categoryId = $request->query('category');
+        $query = Card::with(['cardSize', 'categories']);
         
-        // Pass cards to the view
-        return view('home', compact('cards'));
+        if ($categoryId) {
+            $query->whereHas('categories', function($q) use ($categoryId) {
+                $q->where('categories.id', $categoryId);
+            });
+        }
+        
+        $cards = $query->get();
+        
+        return view('home', compact('cards', 'categories', 'categoryId'));
     }
 }
