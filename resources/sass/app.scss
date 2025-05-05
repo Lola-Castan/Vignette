@@ -21,7 +21,7 @@
     background-color: black;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end !important;
+    justify-content: flex-start !important;
 
     &__categories {
         z-index: 1000;

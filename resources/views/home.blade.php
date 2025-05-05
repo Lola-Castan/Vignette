@@ -22,7 +22,7 @@
     @if(count($cards) > 0)
     <div class="card-container">
         @foreach($cards as $card)
-        <div class="card-clickable" data-modal-id="cardModal-{{ $card->id }}">
+        <div class="card-clickable" role="button" data-modal-id="cardModal-{{ $card->id }}">
             <x-card :card="$card"/>
         </div>
         @endforeach
