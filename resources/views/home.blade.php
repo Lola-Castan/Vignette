@@ -19,6 +19,12 @@
         </div>
     </div>
 
+    @if(Auth::check())
+        <div class="mb-4 text-end">
+            <a href="{{ route('cards_create') }}" class="btn btn-success">Ajouter une carte</a>
+        </div>
+    @endif
+
     @if(count($cards) > 0)
     <div class="card-container">
         @foreach($cards as $card)
