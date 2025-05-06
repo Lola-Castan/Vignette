@@ -36,6 +36,25 @@
     @foreach($cards as $card)
         <x-card-modal modalId="cardModal-{{ $card->id }}" :card="$card"/>
     @endforeach
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const cardId = urlParams.get('card');
+            if(cardId) {
+                const modal = document.getElementById('cardModal-' + cardId);
+                if(modal) {
+                    // Si vous utilisez Bootstrap 5
+                    if(window.bootstrap) {
+                        const bsModal = new bootstrap.Modal(modal);
+                        bsModal.show();
+                    } else {
+                        // Sinon, fallback simple
+                        modal.style.display = 'block';
+                    }
+                }
+            }
+        });
+    </script>
     @else
     <div class="alert alert-info">
         Aucune carte n'est disponible pour cette catégorie.

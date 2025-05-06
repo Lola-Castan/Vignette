@@ -37,7 +37,7 @@ class CardPolicy
      */
     public function update(User $user, Card $card): bool
     {
-        return false;
+        return $user->id === $card->user_id;
     }
 
     /**

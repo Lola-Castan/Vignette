@@ -9,8 +9,8 @@
             </div>
             <div class="modal-body text-center">
                 @if($card->music && $card->image)
-                <div style="position: relative; width: 100%; height: 100%;">
-                    <img src="{{ asset($card->image) }}" class="img-fluid mb-3 card-modal-media-image" alt="{{ $card->title ?? $card->name }}" style="height: 100%; width: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
+                <div style="position: relative; width: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 10px;">
+                    <img src="{{ asset($card->image) }}" class="img-fluid mb-5 card-modal-media-image" alt="{{ $card->title ?? $card->name }}">
                     <audio controls preload="auto" style="height: 40px; width:100%; position: absolute; bottom: 0; left: 0; background: rgba(255,255,255,0.7);">
                         <source src="{{ asset($card->music) }}">
                         Votre navigateur ne supporte pas l'élément audio.
@@ -41,6 +41,16 @@
                         </div>
                         @endif
                     </div>
+                    @if(Auth::check() && Auth::id() === $card->user_id)
+                    <div class="mt-3 text-end">
+                        <a href="{{ route('cards_edit', $card->id) }}" class="btn btn-sm btn-primary">Modifier</a>
+                        <form action="{{ route('cards_delete', $card->id) }}" method="POST" style="display:inline-block;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Supprimer cette carte ?')">Supprimer</button>
+                        </form>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>

@@ -76,19 +76,17 @@ class CardController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Card $cardId)
+    public function show($id)
     {
-        $card = Card::find($cardId);
-        // return view('cards.show', ['card' => $cardId]);
+        return redirect()->route('cards_list', ['card' => $id]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Card $cardId)
+    public function edit(Card $card)
     {
-        $card = Card::find($cardId);
-        // return view('cards.edit', ['card' => $card]);
+        return view('cards.edit', compact('card'));
     }
 
     /**
@@ -97,6 +95,7 @@ class CardController extends Controller
     public function update(UpdateCardRequest $request, Card $card)
     {
         $card->update($request->validated());
+        return redirect()->route('cards_edit', $card->id)->with('success', 'Carte modifiée avec succès !');
     }
 
     /**
@@ -104,6 +103,7 @@ class CardController extends Controller
      */
     public function destroy(Card $card)
     {
-        Card::destroy($card);
+        $card->delete();
+        return redirect()->route('cards_list')->with('success', 'Carte supprimée avec succès !');
     }
 }
