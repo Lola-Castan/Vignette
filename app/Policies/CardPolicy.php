@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\Card;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class CardPolicy
 {
@@ -37,6 +36,7 @@ class CardPolicy
      */
     public function update(User $user, Card $card): bool
     {
+        \Log::info('CardPolicy@update', ['user_id' => $user->id, 'card_user_id' => $card->user_id, 'card_id' => $card->id]);
         return $user->id === $card->user_id;
     }
 

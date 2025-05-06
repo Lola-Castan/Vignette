@@ -63,3 +63,26 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+function pauseAllMedia() {
+    document.querySelectorAll('audio, video').forEach(function (media) {
+        if (!media.paused) media.pause();
+    });
+}
+
+// Pause media on card click
+window.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.card').forEach(function (card) {
+        card.addEventListener('click', function (e) {
+            pauseAllMedia();
+        });
+    });
+    // Pause on modal open (if you use a modal with .modal or .card-modal)
+    document.querySelectorAll('.modal, .card-modal').forEach(function (modal) {
+        modal.addEventListener('click', function (e) {
+            pauseAllMedia();
+        });
+    });
+});
+// Pause on page unload (navigation)
+window.addEventListener('beforeunload', pauseAllMedia);

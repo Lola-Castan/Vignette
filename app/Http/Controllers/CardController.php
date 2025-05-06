@@ -95,7 +95,7 @@ class CardController extends Controller
     public function update(UpdateCardRequest $request, Card $card)
     {
         $card->update($request->validated());
-        return redirect()->route('cards_edit', $card->id)->with('success', 'Carte modifiée avec succès !');
+        return redirect()->route('cards_list', ['card' => $card->id])->with('success', 'Carte modifiée avec succès !');
     }
 
     /**
