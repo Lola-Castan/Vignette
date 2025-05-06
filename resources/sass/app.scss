@@ -11,6 +11,13 @@
     padding: 0 50px;
 }
 
+@media screen and (max-width: 768px) {
+    .page-container {
+        padding: 0 5%;
+    }
+
+}
+
 .card-container {
     display: flex;
     flex-wrap: wrap;
@@ -21,7 +28,8 @@
     background-color: black;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end !important;
+    justify-content: flex-start !important;
+
     &__categories {
         z-index: 1000;
     }
@@ -40,4 +48,71 @@
 .large-card {
     width: 500px;
     height: 500px;
+}
+
+.modal-dialog {
+    max-width: 90vw;
+    height: 80vh;
+    margin: 10vh auto;
+}
+
+.modal-body {
+    display: flex;
+
+    &__right {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-width: 30%;
+    }
+}
+
+// Media styles for modal
+.card-modal-media-video {
+    max-width: 70%;
+    max-height: 70vh;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card-modal-media-image {
+    max-width: 60vw;
+    max-height: 70vh;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: contain; // Ajouté pour garder le format de l'image
+}
+
+.category-filter {
+    margin-bottom: 20px;
+}
+
+.category-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.category-item {
+    padding: 8px 16px;
+    background-color: #f0f0f0;
+    border-radius: 20px;
+    text-decoration: none;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.category-item:hover {
+    background-color: #e0e0e0;
+}
+
+.category-item.active {
+    background-color: #007bff;
+    color: white;
 }

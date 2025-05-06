@@ -19,17 +19,42 @@
         </div>
     </div>
 
+    @if(Auth::check())
+        <div class="mb-4 text-end">
+            <a href="{{ route('cards_create') }}" class="btn btn-success">Ajouter une carte</a>
+        </div>
+    @endif
+
     @if(count($cards) > 0)
     <div class="card-container">
         @foreach($cards as $card)
-        <div class="">
+        <div class="card-clickable" role="button" data-modal-id="cardModal-{{ $card->id }}">
             <x-card :card="$card"/>
         </div>
         @endforeach
     </div>
-    @if(isset($cards[0]))
-        <x-card-modal modalId="cardModal" :card="$cards[0]"/>
-    @endif
+    @foreach($cards as $card)
+        <x-card-modal modalId="cardModal-{{ $card->id }}" :card="$card"/>
+    @endforeach
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const cardId = urlParams.get('card');
+            if(cardId) {
+                const modal = document.getElementById('cardModal-' + cardId);
+                if(modal) {
+                    // Si vous utilisez Bootstrap 5
+                    if(window.bootstrap) {
+                        const bsModal = new bootstrap.Modal(modal);
+                        bsModal.show();
+                    } else {
+                        // Sinon, fallback simple
+                        modal.style.display = 'block';
+                    }
+                }
+            }
+        });
+    </script>
     @else
     <div class="alert alert-info">
         Aucune carte n'est disponible pour cette catégorie.
@@ -37,29 +62,3 @@
     @endif
 </div>
 @endsection
-
-<style>
-    .category-filter {
-        margin-bottom: 20px;
-    }
-    .category-nav {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-    .category-item {
-        padding: 8px 16px;
-        background-color: #f0f0f0;
-        border-radius: 20px;
-        text-decoration: none;
-        color: #333;
-        transition: all 0.3s ease;
-    }
-    .category-item:hover {
-        background-color: #e0e0e0;
-    }
-    .category-item.active {
-        background-color: #007bff;
-        color: white;
-    }
-</style>

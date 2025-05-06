@@ -28,15 +28,15 @@ class HomeController extends Controller
         $categories = Category::all();
         $categoryId = $request->query('category');
         $query = Card::with(['cardSize', 'categories']);
-        
+
         if ($categoryId) {
-            $query->whereHas('categories', function($q) use ($categoryId) {
+            $query->whereHas('categories', function ($q) use ($categoryId) {
                 $q->where('categories.id', $categoryId);
             });
         }
-        
+
         $cards = $query->get();
-        
+
         return view('home', compact('cards', 'categories', 'categoryId'));
     }
 }

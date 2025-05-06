@@ -7,15 +7,29 @@ use App\Http\Requests\StoreCardRequest;
 use App\Http\Requests\UpdateCardRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use App\Models\Category;
+use Illuminate\Http\Request;
 
 class CardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // return view('cards.index', ['cards' => Card::all()]);
+        $categories = Category::all();
+        $categoryId = $request->query('category');
+        $query = Card::with(['cardSize', 'categories']);
+
+        if ($categoryId) {
+            $query->whereHas('categories', function ($q) use ($categoryId) {
+                $q->where('categories.id', $categoryId);
+            });
+        }
+
+        $cards = $query->get();
+
+        return view('home', compact('cards', 'categories', 'categoryId'));
     }
 
     /**
@@ -23,8 +37,7 @@ class CardController extends Controller
      */
     public function create()
     {
-        Log::info('User :' . Auth::id() . ' wants to create a card');
-        // return view('cards.create');
+        return view('cards.create');
     }
 
     /**
@@ -32,26 +45,48 @@ class CardController extends Controller
      */
     public function store(StoreCardRequest $request)
     {
-        // Création d'une carte en récupérant les données validées et en ajoutant l'id de l'utilisateur connecté au tableau envoyé
-        Card::create($request->validated() + ['user_id' => Auth::id()]);
+        $data = $request->validated();
+        $data['user_id'] = auth()->id();
+        $data['card_size_id'] = 1;
+        if (!isset($data['description'])) {
+            $data['description'] = '';
+        }
+
+        // Si une vidéo est uploadée, on ignore image et music
+        if ($request->hasFile('video')) {
+            $data['video'] = "storage/" . $request->file('video')->store('videos', 'public');
+            $data['image'] = null;
+            $data['music'] = null;
+        } else {
+            // Image
+            if ($request->hasFile('image')) {
+                $data['image'] = "storage/" . $request->file('image')->store('images', 'public');
+            }
+            // Son
+            if ($request->hasFile('music')) {
+                $data['music'] = "storage/" . $request->file('music')->store('sounds', 'public');
+            }
+            $data['video'] = null;
+        }
+
+        Card::create($data);
+        return redirect()->route('cards_list')->with('success', 'Carte créée avec succès !');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Card $cardId)
+    public function show($id)
     {
-        $card = Card::find($cardId);
-        // return view('cards.show', ['card' => $cardId]);
+        return redirect()->route('cards_list', ['card' => $id]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Card $cardId)
+    public function edit(Card $card)
     {
-        $card = Card::find($cardId);
-        // return view('cards.edit', ['card' => $card]);
+        return view('cards.edit', compact('card'));
     }
 
     /**
@@ -60,6 +95,7 @@ class CardController extends Controller
     public function update(UpdateCardRequest $request, Card $card)
     {
         $card->update($request->validated());
+        return redirect()->route('cards_list', ['card' => $card->id])->with('success', 'Carte modifiée avec succès !');
     }
 
     /**
@@ -67,6 +103,7 @@ class CardController extends Controller
      */
     public function destroy(Card $card)
     {
-        Card::destroy($card);
+        $card->delete();
+        return redirect()->route('cards_list')->with('success', 'Carte supprimée avec succès !');
     }
 }

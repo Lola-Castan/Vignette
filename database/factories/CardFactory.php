@@ -31,17 +31,17 @@ class CardFactory extends Factory
             $data['image'] = "storage/images/chat.png";
             $data['music'] = null;
             $data['video'] = null;
-        // } elseif ($type === 'music') {
-        //     $data['image'] = null;
-        //     $data['music'] = fake()->url();
-        //     $data['video'] = null;
+        } elseif ($type === 'music') {
+            $data['image'] = null;
+            $data['music'] = "storage/sounds/rain-sound.mp3";
+            $data['video'] = null;
         } elseif ($type === 'video') {
             $data['image'] = null;
             $data['music'] = null;
             $data['video'] = "storage/videos/rain.mp4";
         } elseif ($type === 'image_music') {
             $data['image'] = "storage/images/chatballon.png";
-            $data['music'] = fake()->url();
+            $data['music'] = "storage/sounds/rain-sound.mp3";
             $data['video'] = null;
         }
         return $data;
