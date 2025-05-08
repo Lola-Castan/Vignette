@@ -2,8 +2,8 @@
 
 <div class="modal fade" id="{{ $modalId }}" tabindex="-1" aria-labelledby="{{ $modalId }}Label" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
+        <div class="modal-content" style="background-color: var(--card-bg); color: var(--text-color)">
+            <div class="modal-header" style="background-color: var(--navbar-bg); color: var(--navbar-text)">
                 <h5 class="modal-title" id="{{ $modalId }}Label">{{ $card->title ?? $card->name }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
             </div>
@@ -36,7 +36,7 @@
                         @if($card->categories->count() > 0)
                         <div>
                             @foreach($card->categories as $category)
-                            <span class="badge bg-secondary">{{ $category->name }}</span>
+                            <span class="badge" style="background-color: var(--button-primary-bg); color: var(--button-primary-text)">{{ $category->name }}</span>
                             @endforeach
                         </div>
                         @endif
