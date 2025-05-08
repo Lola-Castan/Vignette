@@ -115,8 +115,9 @@ html[data-theme="image"] main::before {
     background-color: rgba(255, 255, 255, calc(1 - var(--main-bg-opacity)));
 }
 
-/* Assurer que les éléments dans main sont au-dessus du pseudo-élément */
-main > * {
+/* Assurer que les conteneurs principaux sont au-dessus du pseudo-élément, 
+   mais sans perturber la hiérarchie de z-index des modales et autres éléments de UI */
+.container, .container-fluid, .row, .col, .card {
     position: relative;
     z-index: 1;
 }

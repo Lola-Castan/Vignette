@@ -41,9 +41,12 @@
                         </div>
                         @endif
                     </div>
-                    @if(Auth::check() && Auth::id() === $card->user_id)
+                    <!-- Boutons d'action visibles pour le propriétaire et les administrateurs -->
+                    @if(Auth::check() && (Auth::id() === $card->user_id || Auth::user()->role === 'admin'))
                     <div class="mt-3 text-end">
+                        @if(Auth::id() === $card->user_id)
                         <a href="{{ route('cards_edit', $card->id) }}" class="btn btn-sm btn-primary">Modifier</a>
+                        @endif
                         <form action="{{ route('cards_delete', $card->id) }}" method="POST" style="display:inline-block;">
                             @csrf
                             @method('DELETE')
