@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="page-container">
-    <h2 class="">Pinterest du pauvre</h2>
+    <h2 class="">Vignette</h2>
 
     <!-- Navigation des catégories -->
     <div class="category-filter">
