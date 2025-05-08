@@ -29,7 +29,8 @@ class HomeController extends Controller
     {
         $categories = Category::all();
         $categoryId = $request->query('category');
-        $query = Card::with(['cardSize', 'categories']);
+        $magicNumber = $request->query('magic_number');
+        $query = Card::with(['cardSize', 'categories', 'user']);
 
         if ($categoryId) {
             $query->whereHas('categories', function ($q) use ($categoryId) {
@@ -37,8 +38,14 @@ class HomeController extends Controller
             });
         }
 
+        if ($magicNumber) {
+            $query->whereHas('user', function ($q) use ($magicNumber) {
+                $q->where('magic_number', $magicNumber);
+            });
+        }
+
         $cards = $query->get();
 
-        return view('home', compact('cards', 'categories', 'categoryId'));
+        return view('home', compact('cards', 'categories', 'categoryId', 'magicNumber'));
     }
 }

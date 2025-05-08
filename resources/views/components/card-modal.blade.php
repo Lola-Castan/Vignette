@@ -32,7 +32,12 @@
                 <div class="modal-body__right">
                     <p>{{ $card->description }}</p>
                     <div>
-                        <p><strong>Magic number:</strong> {{ $card->user->magic_number ?? '' }}</p>
+                        <p>
+                            <strong>Magic number:</strong> 
+                            <a href="{{ route('home', ['magic_number' => $card->user->magic_number]) }}" class="badge bg-secondary">
+                                {{ $card->user->magic_number ?? 'N/A' }}
+                            </a>
+                        </p>
                         @if($card->categories->count() > 0)
                         <div>
                             @foreach($card->categories as $category)
