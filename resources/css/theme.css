@@ -24,6 +24,29 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     transition: background-color 0.3s, color 0.3s;
+    position: relative;
+}
+
+/* Conteneur d'arrière-plan pour le thème avec image */
+#background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: none;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+    opacity: var(--main-bg-opacity);
+    transition: opacity 0.3s, background-image 0.3s;
+}
+
+/* Le reste du contenu garde son style normal sans z-index spécifique */
+#app {
+    position: relative;
+    min-height: 100vh;
 }
 
 .navbar {
@@ -82,42 +105,4 @@ body {
 
 .dropdown-menu .dropdown-item:hover {
     background-color: var(--dropdown-hover-bg);
-}
-
-/* Style pour l'élément main avec image de fond */
-main {
-    background-image: var(--main-bg-image);
-    background-color: var(--main-bg-color);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    transition: background-image 0.3s, background-color 0.3s;
-    min-height: calc(100vh - 60px); /* Hauteur minimale pour s'assurer que l'image couvre la zone visible */
-    position: relative;
-}
-
-/* Pseudo-élément pour appliquer l'opacité à l'image de fond */
-main::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0); /* Par défaut transparent */
-    z-index: 0;
-    pointer-events: none;
-    transition: background-color 0.3s;
-}
-
-/* Appliquer l'opacité uniquement lorsque le thème est "image" */
-html[data-theme="image"] main::before {
-    background-color: rgba(255, 255, 255, calc(1 - var(--main-bg-opacity)));
-}
-
-/* Assurer que les conteneurs principaux sont au-dessus du pseudo-élément, 
-   mais sans perturber la hiérarchie de z-index des modales et autres éléments de UI */
-.container, .container-fluid, .row, .col, .card {
-    position: relative;
-    z-index: 1;
 }

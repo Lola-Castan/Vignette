@@ -22,6 +22,7 @@
 </head>
 
 <body>
+    <div id="background-container"></div>
     <div id="app">
         <nav class="navbar navbar-expand-md shadow-sm">
             <div class="container">

@@ -78,6 +78,21 @@ function setTheme(themeName) {
     // Définir l'attribut data-theme sur l'élément HTML
     document.documentElement.setAttribute('data-theme', themeName);
     
+    // Gérer spécifiquement l'image de fond si on est en thème "image"
+    const backgroundContainer = document.getElementById('background-container');
+    if (backgroundContainer) {
+        if (themeName === 'image') {
+            // Extrait l'URL de l'image de la variable CSS
+            const bgImageValue = selectedTheme['--main-bg-image'];
+            const urlMatch = bgImageValue.match(/url\(['"]?([^'"]+)['"]?\)/);
+            if (urlMatch && urlMatch[1]) {
+                backgroundContainer.style.backgroundImage = `url(${urlMatch[1]})`;
+            }
+        } else {
+            backgroundContainer.style.backgroundImage = 'none';
+        }
+    }
+    
     // Sauvegarder le thème choisi dans localStorage
     localStorage.setItem('theme', themeName);
     
