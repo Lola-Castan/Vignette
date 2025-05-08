@@ -56,6 +56,11 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.users.list') }}" title="Gestion des utilisateurs">
+                                    <i class="fas fa-users"></i> Utilisateurs
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin.theme.settings') }}" title="Paramètres du thème">
                                     <i class="fas fa-paint-brush"></i> Thème
                                 </a>
