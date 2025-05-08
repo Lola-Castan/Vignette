@@ -80,19 +80,24 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-4. Configurer la base de données dans le fichier .env
+4. Créer le lien avec le dossier storage
+```bash
+php artisan storage:link
+```
 
-5. Exécuter les migrations et les seeders
+5. Configurer la base de données dans le fichier .env
+
+6. Exécuter les migrations et les seeders
 ```bash
 php artisan migrate --seed
 ```
 
-6. Compiler les assets
+7. Compiler les assets
 ```bash
 npm run dev
 ```
 
-7. Lancer le serveur
+8. Lancer le serveur
 ```bash
 php artisan serve
 ```
