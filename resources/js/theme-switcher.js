@@ -20,7 +20,9 @@ const themes = {
         '--button-primary-text': '#ffffff',
         '--dropdown-bg': '#ffffff',
         '--dropdown-text': '#333333',
-        '--dropdown-hover-bg': '#f8f9fa'
+        '--dropdown-hover-bg': '#f8f9fa',
+        '--main-bg-image': 'none',
+        '--main-bg-color': '#ffffff'
     },
     dark: {
         '--bg-color': '#121212',
@@ -37,38 +39,68 @@ const themes = {
         '--button-primary-text': '#ffffff',
         '--dropdown-bg': '#2a2a2a',
         '--dropdown-text': '#e1e1e1',
-        '--dropdown-hover-bg': '#3a3a3a'
+        '--dropdown-hover-bg': '#3a3a3a',
+        '--main-bg-image': 'none',
+        '--main-bg-color': '#121212'
+    },
+    image: {
+        '--bg-color': '#ffffff',
+        '--text-color': '#333333',
+        '--navbar-bg': '#ffffff',
+        '--navbar-text': '#333333',
+        '--navbar-shadow': '0 2px 4px rgba(0,0,0,0.1)',
+        '--navbar-toggler-filter': 'none',
+        '--card-bg': '#ffffff',
+        '--card-shadow': '0 2px 4px rgba(0,0,0,0.1)',
+        '--input-bg': '#f8f9fa',
+        '--input-border': '#ced4da',
+        '--button-primary-bg': '#3490dc',
+        '--button-primary-text': '#ffffff',
+        '--dropdown-bg': '#ffffff',
+        '--dropdown-text': '#333333',
+        '--dropdown-hover-bg': '#f8f9fa',
+        '--main-bg-image': 'url("/storage/backgrounds/backgroundchat.jpg")',
+        '--main-bg-color': 'transparent'
     }
 };
 
-// Fonction pour définir le thème
 function setTheme(themeName) {
-    // Appliquer les variables CSS du thème sélectionné
     const selectedTheme = themes[themeName];
     for (const property in selectedTheme) {
         document.documentElement.style.setProperty(property, selectedTheme[property]);
     }
-    
-    // Sauvegarder le thème choisi dans localStorage
     localStorage.setItem('theme', themeName);
-    
-    // Mettre à jour l'icône du bouton de thème
     updateThemeIcon(themeName);
 }
 
-// Fonction pour basculer entre les thèmes
 function toggleTheme() {
     const currentTheme = localStorage.getItem('theme') || 'light';
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    let newTheme;
+    
+    if (currentTheme === 'light') {
+        newTheme = 'dark';
+    } else if (currentTheme === 'dark') {
+        newTheme = 'image';
+    } else {
+        newTheme = 'light';
+    }
+    
     setTheme(newTheme);
 }
 
-// Mettre à jour l'icône du bouton de thème
 function updateThemeIcon(themeName) {
     const themeIcon = document.getElementById('theme-icon');
     if (themeIcon) {
-        themeIcon.className = themeName === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-        themeIcon.title = themeName === 'dark' ? 'Passer au thème clair' : 'Passer au thème sombre';
+        if (themeName === 'dark') {
+            themeIcon.className = 'fas fa-image';
+            themeIcon.title = 'Passer au thème avec image';
+        } else if (themeName === 'image') {
+            themeIcon.className = 'fas fa-sun';
+            themeIcon.title = 'Passer au thème clair';
+        } else {
+            themeIcon.className = 'fas fa-moon';
+            themeIcon.title = 'Passer au thème sombre';
+        }
     }
 }
 
