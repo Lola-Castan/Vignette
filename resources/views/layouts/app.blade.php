@@ -61,6 +61,11 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.cards.list') }}" title="Gestion des cartes">
+                                    <i class="fas fa-sticky-note"></i> Cartes
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin.theme.settings') }}" title="Paramètres du thème">
                                     <i class="fas fa-paint-brush"></i> Thème
                                 </a>

@@ -42,4 +42,10 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::get('/users/{user}/edit', [App\Http\Controllers\Admin\UserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{user}', [App\Http\Controllers\Admin\UserController::class, 'update'])->name('users.update');
     Route::delete('/users/{user}', [App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('users.destroy');
+    
+    // Routes pour les cartes (admin)
+    Route::get('/cards', [App\Http\Controllers\Admin\CardController::class, 'list'])->name('cards.list');
+    Route::get('/cards/{card}/edit', [App\Http\Controllers\Admin\CardController::class, 'edit'])->name('cards.edit');
+    Route::put('/cards/{card}', [App\Http\Controllers\Admin\CardController::class, 'update'])->name('cards.update');
+    Route::delete('/cards/{card}', [App\Http\Controllers\Admin\CardController::class, 'destroy'])->name('cards.destroy');
 });
