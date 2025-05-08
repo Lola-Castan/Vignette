@@ -13,6 +13,17 @@ use Illuminate\Http\Request;
 class CardController extends Controller
 {
     /**
+     * Constructeur
+     */
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+        $this->authorizeResource(Card::class, 'card', [
+            'except' => ['index', 'show']
+        ]);
+    }
+
+    /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
@@ -46,7 +57,7 @@ class CardController extends Controller
     public function store(StoreCardRequest $request)
     {
         $data = $request->validated();
-        $data['user_id'] = auth()->id();
+        $data['user_id'] = Auth::id();
         $data['card_size_id'] = 1;
         if (!isset($data['description'])) {
             $data['description'] = '';
@@ -86,6 +97,7 @@ class CardController extends Controller
      */
     public function edit(Card $card)
     {
+        // La vérification d'autorisation est faite par authorizeResource
         return view('cards.edit', compact('card'));
     }
 
@@ -94,6 +106,7 @@ class CardController extends Controller
      */
     public function update(UpdateCardRequest $request, Card $card)
     {
+        // La vérification d'autorisation est faite par authorizeResource
         $card->update($request->validated());
         return redirect()->route('cards_list', ['card' => $card->id])->with('success', 'Carte modifiée avec succès !');
     }
@@ -103,6 +116,7 @@ class CardController extends Controller
      */
     public function destroy(Card $card)
     {
+        // La vérification d'autorisation est faite par authorizeResource
         $card->delete();
         return redirect()->route('cards_list')->with('success', 'Carte supprimée avec succès !');
     }

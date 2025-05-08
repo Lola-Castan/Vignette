@@ -51,18 +51,8 @@
                             <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="role" class="form-label">Rôle</label>
-                            <select class="form-select @error('role') is-invalid @enderror" id="role" name="role" required>
-                                <option value="user" {{ old('role') === 'user' ? 'selected' : '' }}>Utilisateur</option>
-                                <option value="admin" {{ old('role') === 'admin' ? 'selected' : '' }}>Administrateur</option>
-                            </select>
-                            @error('role')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
+                        <!-- Le champ de rôle a été supprimé car tous les nouveaux utilisateurs sont 'user' par défaut -->
+                        <input type="hidden" name="role" value="user">
 
                         <div class="mb-3">
                             <label for="magic_number" class="form-label">Nombre magique (optionnel)</label>

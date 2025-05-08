@@ -51,9 +51,11 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|string|in:user,admin',
             'magic_number' => 'nullable|integer'
         ]);
+        
+        // Force le rôle à 'user' car l'admin est unique et prédéfini
+        $validatedData['role'] = 'user';
         
         // Hash du mot de passe
         $validatedData['password'] = Hash::make($validatedData['password']);
@@ -81,7 +83,6 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             'password' => 'nullable|string|min:8|confirmed',
-            'role' => 'required|string|in:user,admin',
             'magic_number' => 'nullable|integer'
         ]);
         
@@ -92,11 +93,10 @@ class UserController extends Controller
             unset($validatedData['password']);
         }
         
-        // Protection contre la suppression de tous les admins
-        if ($user->role === 'admin' && $validatedData['role'] !== 'admin' && User::where('role', 'admin')->count() <= 1) {
-            return redirect()->back()
-                ->with('error', 'Impossible de changer le rôle du dernier administrateur.')
-                ->withInput();
+        // Empêcher la modification du rôle de n'importe quel utilisateur
+        // car l'admin est unique et prédéfini
+        if (isset($validatedData['role'])) {
+            unset($validatedData['role']);
         }
         
         $user->update($validatedData);
@@ -116,10 +116,10 @@ class UserController extends Controller
                 ->with('error', 'Vous ne pouvez pas supprimer votre propre compte.');
         }
         
-        // Protection contre la suppression de tous les admins
-        if ($user->role === 'admin' && User::where('role', 'admin')->count() <= 1) {
+        // Empêcher la suppression de l'administrateur
+        if ($user->role === 'admin') {
             return redirect()->route('admin.users.list')
-                ->with('error', 'Impossible de supprimer le dernier administrateur.');
+                ->with('error', 'Impossible de supprimer l\'administrateur.');
         }
         
         $user->delete();

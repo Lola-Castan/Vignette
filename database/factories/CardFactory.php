@@ -21,12 +21,24 @@ class CardFactory extends Factory
     {
         // Choix du type de carte : image seule, son seul, vidéo seule, ou image+son
         $type = fake()->randomElement(['image', 'music', 'video', 'image_music']);
+        
+        // Récupère un CardSize ou en crée un nouveau si aucun n'existe
+        $cardSizeId = CardSize::count() > 0 
+            ? CardSize::inRandomOrder()->first()->id 
+            : CardSize::factory()->create()->id;
+            
+        // Récupère un User ou en crée un nouveau si aucun n'existe
+        $userId = User::count() > 0 
+            ? User::inRandomOrder()->first()->id 
+            : User::factory()->create()->id;
+            
         $data = [
-            'user_id' => User::inRandomOrder()->first()->id,
+            'user_id' => $userId,
             'title' => fake()->sentence(),
             'description' => fake()->text(),
-            'card_size_id' => CardSize::inRandomOrder()->first()->id,
+            'card_size_id' => $cardSizeId,
         ];
+        
         if ($type === 'image') {
             $data['image'] = "storage/images/chat.png";
             $data['music'] = null;

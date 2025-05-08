@@ -10,17 +10,17 @@ class CardPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(?User $user): bool
     {
-        return false;
+        return true; // Tout le monde peut voir la liste des cartes
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Card $card): bool
+    public function view(?User $user, Card $card): bool
     {
-        return false;
+        return true; // Tout le monde peut voir une carte spécifique
     }
 
     /**
@@ -28,7 +28,7 @@ class CardPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return true; // Utilisateur authentifié peut créer une carte
     }
 
     /**
@@ -36,8 +36,8 @@ class CardPolicy
      */
     public function update(User $user, Card $card): bool
     {
-        \Log::info('CardPolicy@update', ['user_id' => $user->id, 'card_user_id' => $card->user_id, 'card_id' => $card->id]);
-        return $user->id === $card->user_id;
+        // Admin ou propriétaire peut modifier
+        return $user->role === 'admin' || $user->id === $card->user_id;
     }
 
     /**
@@ -45,7 +45,8 @@ class CardPolicy
      */
     public function delete(User $user, Card $card): bool
     {
-        return false;
+        // Admin ou propriétaire peut supprimer
+        return $user->role === 'admin' || $user->id === $card->user_id;
     }
 
     /**
@@ -53,7 +54,8 @@ class CardPolicy
      */
     public function restore(User $user, Card $card): bool
     {
-        return false;
+        // Admin ou propriétaire peut restaurer
+        return $user->role === 'admin' || $user->id === $card->user_id;
     }
 
     /**
@@ -61,6 +63,7 @@ class CardPolicy
      */
     public function forceDelete(User $user, Card $card): bool
     {
-        return false;
+        // Seul admin peut supprimer définitivement
+        return $user->role === 'admin';
     }
 }

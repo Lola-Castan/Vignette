@@ -58,23 +58,15 @@
                             <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
                         </div>
 
+                        <!-- Le champ rôle est remplacé par un affichage statique -->
                         <div class="mb-3">
-                            <label for="role" class="form-label">Rôle</label>
-                            <select class="form-select @error('role') is-invalid @enderror" id="role" name="role" required {{ $user->id === Auth::id() && $user->role === 'admin' ? 'disabled' : '' }}>
-                                <option value="user" {{ (old('role', $user->role) === 'user') ? 'selected' : '' }}>Utilisateur</option>
-                                <option value="admin" {{ (old('role', $user->role) === 'admin') ? 'selected' : '' }}>Administrateur</option>
-                            </select>
-                            @if($user->id === Auth::id() && $user->role === 'admin')
-                                <input type="hidden" name="role" value="admin">
-                                <div class="form-text text-muted">
-                                    Vous ne pouvez pas changer votre propre rôle d'administrateur.
-                                </div>
-                            @endif
-                            @error('role')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                            <label class="form-label">Rôle</label>
+                            <div class="form-control bg-light">{{ $user->role === 'admin' ? 'Administrateur' : 'Utilisateur' }}</div>
+                            <div class="form-text text-muted">
+                                {{ $user->role === 'admin' ? 'Le rôle administrateur est unique et ne peut pas être modifié.' : 'Les rôles ne peuvent pas être modifiés.' }}
+                            </div>
+                            <!-- Maintenir le rôle actuel -->
+                            <input type="hidden" name="role" value="{{ $user->role }}">
                         </div>
 
                         <div class="mb-3">

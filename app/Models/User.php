@@ -47,4 +47,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Get the cards associated with the user.
+     */
+    public function cards()
+    {
+        return $this->hasMany(Card::class);
+    }
 }
