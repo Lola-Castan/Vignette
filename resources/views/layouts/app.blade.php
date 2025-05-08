@@ -47,6 +47,22 @@
                             </a>
                         </li>
 
+                        <!-- Admin Links - Visible only for admins -->
+                        @auth
+                            @if(Auth::user()->role === 'admin')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.categories.list') }}" title="Gestion des catégories">
+                                    <i class="fas fa-tags"></i> Catégories
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.theme.settings') }}" title="Paramètres du thème">
+                                    <i class="fas fa-paint-brush"></i> Thème
+                                </a>
+                            </li>
+                            @endif
+                        @endauth
+
                         <!-- Authentication Links -->
                         @guest
                         @if (Route::has('login'))
@@ -70,7 +86,7 @@
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                                    <i class="fas fa-sign-out-alt"></i> {{ __('Logout') }}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

@@ -4,10 +4,25 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ThemeSettingsController extends Controller
 {
+    /**
+     * Constructeur qui vérifie que l'utilisateur est administrateur
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware(function ($request, $next) {
+            if (Auth::user()->role !== 'admin') {
+                abort(403, 'Accès non autorisé.');
+            }
+            return $next($request);
+        });
+    }
+
     /**
      * Affiche le formulaire de configuration du thème
      */
