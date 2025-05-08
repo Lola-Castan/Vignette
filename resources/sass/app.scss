@@ -1,27 +1,30 @@
-// Fonts
 @import url('https://fonts.bunny.net/css?family=Nunito');
-
-// Variables
 @import 'variables';
-
-// Bootstrap
 @import 'bootstrap/scss/bootstrap';
 
 .page-container {
     padding: 0 50px;
-}
-
-@media screen and (max-width: 768px) {
-    .page-container {
-        padding: 0 5%;
-    }
-
+    max-width: 1600px;
+    margin: 0 auto;
 }
 
 .card-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    justify-content: flex-start;
+    margin: 0 -10px;
+}
+
+.card-clickable {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    display: inline-block;
+    margin: 10px;
+}
+
+.card-clickable:hover {
+    transform: translateY(-5px);
 }
 
 .card {
@@ -31,10 +34,98 @@
     justify-content: flex-start !important;
 
     &__categories {
-        z-index: 1000;
+        z-index: 100;
     }
 }
 
+.responsive-card {
+    --base-unit: min(15vw, 200px);
+    width: calc(var(--base-unit) * var(--width-ratio));
+    position: relative;
+    background-color: black;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 4px;
+    
+    &::before {
+        content: "";
+        display: block;
+        padding-bottom: var(--aspect-ratio);
+    }
+    
+    // Conteneur pour le contenu de la carte
+    &-inner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    // Styles pour les cat�gories et le magic number
+    .card__categories {
+        display: flex;
+        flex-wrap: wrap;
+        font-size: calc(var(--base-unit) * 0.06);
+        
+        .badge {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+    }
+    
+    .card__magic-number {
+        font-size: calc(var(--base-unit) * 0.06);
+    }
+}
+
+// Media queries pour s''adapter aux diff�rentes tailles d''�cran
+@media screen and (max-width: 1400px) {
+    .responsive-card {
+        --base-unit: min(18vw, 180px);
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .responsive-card {
+        --base-unit: min(22vw, 160px);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .page-container {
+        padding: 0 15px;
+    }
+    
+    .responsive-card {
+        --base-unit: min(30vw, 140px);
+    }
+    
+    .card-container {
+        gap: 10px;
+    }
+    
+    .card-clickable {
+        margin: 5px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .responsive-card {
+        --base-unit: min(42vw, 130px);
+    }
+    
+    .card-container {
+        gap: 8px;
+        justify-content: space-between;
+    }
+}
+
+// Conserver les anciennes classes pour la compatibilit� (� supprimer plus tard)
 .small-card {
     width: 250px;
     height: 250px;
@@ -50,6 +141,7 @@
     height: 500px;
 }
 
+// Styles pour les modales
 .modal-dialog {
     max-width: 90vw;
     height: 80vh;
@@ -67,7 +159,7 @@
     }
 }
 
-// Media styles for modal
+// Media styles pour la modale
 .card-modal-media-video {
     max-width: 70%;
     max-height: 70vh;
@@ -86,9 +178,10 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    object-fit: contain; // Ajouté pour garder le format de l'image
+    object-fit: contain;
 }
 
+// Styles pour les filtres de cat�gorie
 .category-filter {
     margin-bottom: 20px;
 }
