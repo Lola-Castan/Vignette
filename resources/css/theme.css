@@ -1,0 +1,82 @@
+/* Styles pour le système de thèmes */
+
+:root {
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --navbar-bg: #ffffff;
+    --navbar-text: #333333;
+    --navbar-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    --card-bg: #ffffff;
+    --card-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    --input-bg: #f8f9fa;
+    --input-border: #ced4da;
+    --button-primary-bg: #3490dc;
+    --button-primary-text: #ffffff;
+    --dropdown-bg: #ffffff;
+    --dropdown-text: #333333;
+    --dropdown-hover-bg: #f8f9fa;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar {
+    background-color: var(--navbar-bg) !important;
+    box-shadow: var(--navbar-shadow);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.navbar .nav-link, .navbar .navbar-brand, .navbar .navbar-toggler {
+    color: var(--navbar-text) !important;
+    transition: color 0.3s;
+}
+
+.navbar .navbar-toggler-icon {
+    filter: var(--navbar-toggler-filter);
+}
+
+.card {
+    background-color: var(--card-bg);
+    box-shadow: var(--card-shadow);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.form-control {
+    background-color: var(--input-bg);
+    border-color: var(--input-border);
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.btn-primary {
+    background-color: var(--button-primary-bg);
+    color: var(--button-primary-text);
+    transition: background-color 0.3s;
+}
+
+#theme-toggle {
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+#theme-toggle:hover {
+    background-color: rgba(128, 128, 128, 0.2);
+}
+
+.dropdown-menu {
+    background-color: var(--dropdown-bg);
+    transition: background-color 0.3s;
+}
+
+.dropdown-menu .dropdown-item {
+    color: var(--dropdown-text);
+    transition: color 0.3s, background-color 0.3s;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background-color: var(--dropdown-hover-bg);
+}

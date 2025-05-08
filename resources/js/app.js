@@ -10,6 +10,12 @@ import { createApp } from 'vue';
 import * as bootstrap from 'bootstrap';
 window.bootstrap = bootstrap;
 
+// Import des styles CSS pour le thème
+import '../css/theme.css';
+
+// Import du gestionnaire de thème
+import './theme-switcher';
+
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
  * registering components with the application instance so they are ready
