@@ -22,6 +22,7 @@ const themes = {
         '--dropdown-text': '#333333',
         '--dropdown-hover-bg': '#f8f9fa',
         '--main-bg-image': 'none',
+        '--main-bg-opacity': '1',
         '--main-bg-color': '#ffffff'
     },
     dark: {
@@ -41,6 +42,7 @@ const themes = {
         '--dropdown-text': '#e1e1e1',
         '--dropdown-hover-bg': '#3a3a3a',
         '--main-bg-image': 'none',
+        '--main-bg-opacity': '1',
         '--main-bg-color': '#121212'
     },
     image: {
@@ -59,17 +61,27 @@ const themes = {
         '--dropdown-bg': '#ffffff',
         '--dropdown-text': '#333333',
         '--dropdown-hover-bg': '#f8f9fa',
-        '--main-bg-image': 'url("/storage/backgrounds/backgroundchat.jpg")',
+        '--main-bg-image': 'url("/storage/backgrounds/1746716830.jpg")',
+        '--main-bg-opacity': '0.5',
         '--main-bg-color': 'transparent'
     }
 };
 
+// Fonction pour définir le thème
 function setTheme(themeName) {
+    // Appliquer les variables CSS du thème sélectionné
     const selectedTheme = themes[themeName];
     for (const property in selectedTheme) {
         document.documentElement.style.setProperty(property, selectedTheme[property]);
     }
+    
+    // Définir l'attribut data-theme sur l'élément HTML
+    document.documentElement.setAttribute('data-theme', themeName);
+    
+    // Sauvegarder le thème choisi dans localStorage
     localStorage.setItem('theme', themeName);
+    
+    // Mettre à jour l'icône du bouton de thème
     updateThemeIcon(themeName);
 }
 
