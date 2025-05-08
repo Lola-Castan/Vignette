@@ -61,7 +61,7 @@ const themes = {
         '--dropdown-bg': '#ffffff',
         '--dropdown-text': '#333333',
         '--dropdown-hover-bg': '#f8f9fa',
-        '--main-bg-image': 'url("/storage/backgrounds/1746716830.jpg")',
+        '--main-bg-image': 'url("/storage/backgrounds/backgroundcitron.jpg")',
         '--main-bg-opacity': '0.5',
         '--main-bg-color': 'transparent'
     }

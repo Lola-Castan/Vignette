@@ -47,7 +47,16 @@ class ThemeSettingsController extends Controller
         // Gérer le téléchargement d'une nouvelle image si fournie
         if ($request->hasFile('new_background')) {
             $file = $request->file('new_background');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $filename = $file->getClientOriginalName(); // Utiliser le nom original du fichier
+            
+            // Vérifier si un fichier avec le même nom existe déjà
+            if (Storage::disk('public')->exists('backgrounds/' . $filename)) {
+                // Générer un nom unique en ajoutant un timestamp tout en gardant le nom original
+                $name = pathinfo($filename, PATHINFO_FILENAME);
+                $extension = $file->getClientOriginalExtension();
+                $filename = $name . '_' . time() . '.' . $extension;
+            }
+            
             Storage::disk('public')->putFileAs('backgrounds', $file, $filename);
             $validated['background_image'] = $filename;
         }
