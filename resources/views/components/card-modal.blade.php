@@ -11,7 +11,7 @@
                 @if($card->music && $card->image)
                 <div style="position: relative; width: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 10px;">
                     <img src="{{ asset($card->image) }}" class="img-fluid mb-5 card-modal-media-image" alt="{{ $card->title ?? $card->name }}">
-                    <audio controls preload="auto" style="height: 40px; width:100%; position: absolute; bottom: 0; left: 0; background: rgba(255,255,255,0.7);">
+                    <audio controls preload="auto" style="height: 40px; width:100%; position: absolute; bottom: 0; left: 0; background: rgba(255,255,255,0.7);" class="modal-media">
                         <source src="{{ asset($card->music) }}">
                         Votre navigateur ne supporte pas l'élément audio.
                     </audio>
@@ -19,12 +19,12 @@
                 @elseif($card->image)
                 <img src="{{ asset($card->image) }}" class="img-fluid mb-3 card-modal-media-image" alt="{{ $card->title ?? $card->name }}">
                 @elseif($card->music)
-                <audio controls preload="auto" class="mb-3">
+                <audio controls preload="auto" class="mb-3 modal-media">
                     <source src="{{ asset($card->music) }}">
                     Votre navigateur ne supporte pas l'audio.
                 </audio>
                 @elseif($card->video)
-                <video controls preload="auto" class="img-fluid mb-3 card-modal-media-video">
+                <video controls preload="auto" class="img-fluid mb-3 card-modal-media-video modal-media">
                     <source src="{{ asset($card->video) }}">
                     Votre navigateur ne supporte pas la vidéo.
                 </video>
@@ -64,3 +64,40 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Récupérer la modale actuelle
+    const modal = document.getElementById('{{ $modalId }}');
+    
+    if (modal) {
+        // Ajouter un événement lorsque la modale est entièrement affichée
+        modal.addEventListener('shown.bs.modal', function() {
+            // Trouver tous les éléments média dans cette modale spécifique
+            const mediaElements = modal.querySelectorAll('.modal-media');
+            
+            // Démarrer la lecture de chaque élément média
+            mediaElements.forEach(function(media) {
+                // Vérifier si c'est un élément audio ou vidéo
+                if (media.tagName.toLowerCase() === 'audio' || media.tagName.toLowerCase() === 'video') {
+                    media.play().catch(function(error) {
+                        console.log('Lecture automatique impossible: ', error);
+                    });
+                }
+            });
+        });
+        
+        // Arrêter les médias lorsque la modale se ferme
+        modal.addEventListener('hidden.bs.modal', function() {
+            const mediaElements = modal.querySelectorAll('.modal-media');
+            
+            mediaElements.forEach(function(media) {
+                if (media.tagName.toLowerCase() === 'audio' || media.tagName.toLowerCase() === 'video') {
+                    media.pause();
+                    media.currentTime = 0;
+                }
+            });
+        });
+    }
+});
+</script>
