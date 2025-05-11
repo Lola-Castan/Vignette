@@ -16,6 +16,12 @@ import '../css/theme.css';
 // Import du gestionnaire de thème
 import './theme-switcher';
 
+// Import des composants personnalisés
+import './components/card-modal';
+import './components/card-modal-media';
+import './components/theme-settings';
+import './components/card-form';
+
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
  * registering components with the application instance so they are ready

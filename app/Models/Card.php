@@ -20,7 +20,6 @@ class Card extends Model
         'description',
         'user_id',
         'card_size_id',
-        // ajoutez d'autres champs si besoin
     ];
 
     public function categories()

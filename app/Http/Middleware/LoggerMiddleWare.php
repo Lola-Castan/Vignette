@@ -20,7 +20,7 @@ class LoggerMiddleWare
         Log::info('Route called', [
             'method' => $request->getMethod(),
             'url' => $request->getPathInfo(),
-            'status' => $response->status(),
+            'status' => $response->getStatusCode(),
             'ip' => $request->ip(),
             'referer' => $request->headers->get('referer'),
             'query' => $request->query(),

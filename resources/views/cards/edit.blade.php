@@ -41,20 +41,4 @@
         <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
     </form>
 </div>
-<script>
-const videoInput = document.getElementById('video');
-const imageInput = document.getElementById('image');
-const musicInput = document.getElementById('music');
-if(videoInput) {
-    videoInput.addEventListener('change', function() {
-        if(this.files.length > 0) {
-            imageInput.disabled = true;
-            musicInput.disabled = true;
-        } else {
-            imageInput.disabled = false;
-            musicInput.disabled = false;
-        }
-    });
-}
-</script>
 @endsection

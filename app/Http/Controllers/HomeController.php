@@ -15,9 +15,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        // L'accueil est accessible sans authentification
-        // Décommentez la ligne ci-dessous si vous avez d'autres méthodes à protéger
-        // $this->middleware('auth')->except('index');
+        $this->middleware('auth')->except('index');
     }
 
     /**
