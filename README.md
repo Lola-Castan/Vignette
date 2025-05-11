@@ -104,7 +104,7 @@ php artisan serve
 
 ## Déploiement
 
-Le site est accessible à l'adresse: [URL_DU_SITE_DÉPLOYÉ]
+Le site est accessible à l'adresse: https://lola-castan.mds-rennes.yt/
 
 ## Informations de connexion par défaut
 
